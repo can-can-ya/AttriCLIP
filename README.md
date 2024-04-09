@@ -7,9 +7,10 @@ This is the pytorch version code of "AttriCLIP: A Non-Incremental Learner for In
 - [AttriCLIP](#attriclip)
   - [Content](#content)
   - [Introduce of AttriCLIP](#introduce-of-attriclip)
-  - [Datasets](#datasets)
-  - [Pretrained CLIP](#pretrained-clip)
-  - [Insturction](#insturction)
+  - [1. Environment](#1-Environment)
+  - [2. Datasets](#2-Datasets)
+  - [3. Pretrained CLIP](#3-Pretrained-CLIP)
+  - [4. Train](#4-Train)
 
 ## [Introduce of AttriCLIP](#Content)
 
