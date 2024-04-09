@@ -26,7 +26,7 @@ def parse_option():
     parser.add_argument("--num_runs", type=int, default=1, help='num_runs')
     parser.add_argument("--seed", type=int, default=0, help='random seed')
 
-    parser.add_argument("--arch", type=str, default='ViT-L-16', help='arch')
+    parser.add_argument("--arch", type=str, default='ViT-L-14', help='arch')
     parser.add_argument("--checkpoint", type=str, default='path', help='save_checkpoint')
     parser.add_argument("--ckpt_path", type=str, default=None, help='ckpt_path')
     parser.add_argument("--keyprompt_path", type=str, default='path', help='keyprompt_path')
@@ -37,8 +37,8 @@ def parse_option():
     parser.add_argument("--lr", type=float, default=1e-3, help='num_runs')
     parser.add_argument("--wd", type=float, default=0.0, help='num_runs')
     parser.add_argument("--epochs", type=int, default=10, help='num_runs')
-    parser.add_argument("--train_batch", type=int, default=32, help='num_runs')
-    parser.add_argument("--test_batch", type=int, default=32, help='num_runs')
+    parser.add_argument("--train_batch", type=int, default=8, help='num_runs') # 32
+    parser.add_argument("--test_batch", type=int, default=8, help='num_runs') # 32
 
     #model setting
     parser.add_argument("--model", type=str, default='coop', help='model')

@@ -1,3 +1,5 @@
 ftfy
 regex
 tqdm
+matplotlib
+scikit-learn
