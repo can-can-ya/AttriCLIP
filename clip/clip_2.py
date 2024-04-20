@@ -129,6 +129,10 @@ def load(name: str, device: Union[str, torch.device] = "cuda" if torch.cuda.is_a
         model = build_model(state_dict or model.state_dict()).to(device)
         if str(device) == "cpu":
             model.float()
+
+        for param in model.parameters():
+            param.requires_grad = False
+
         return model, _transform(model.visual.input_resolution)
 
     # patch the device names

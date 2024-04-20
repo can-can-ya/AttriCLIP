@@ -165,10 +165,10 @@ class CLIP(nn.Module):
 
         if test:
             n_test = len(test_class)
-            probability = image_features @ self.text_key.t()
+            text_key = self.text_key / self.text_key.norm(dim=-1, keepdim=True)
+            probability = image_features @ text_key.t()  # Cosine similarity
             _, indices = probability.topk(k=min(self.args.text_prompt,probability.shape[1]), dim=1, largest=True)
 
-            
             text_prompt, tokenized_prompts = self.prompt_learner(indices,test_class,test)
             text_features = self.text_encoder(text_prompt,tokenized_prompts)
             text_features = text_features / text_features.norm(dim=-1, keepdim=True)
@@ -181,7 +181,8 @@ class CLIP(nn.Module):
 
         else:
             n_class = self.n_class
-            probability = image_features @ self.text_key.t()
+            text_key = self.text_key / self.text_key.norm(dim=-1, keepdim=True)
+            probability = image_features @ text_key.t() # Cosine similarity
             _, indices = probability.topk(k=min(self.args.text_prompt, probability.shape[1]), dim=1, largest=True)
             key_choose = self.text_key[indices]
             text_prompt, tokenized_prompts, nc_prompts, nc_tokenized_prompts = self.prompt_learner(indices)
@@ -255,7 +256,7 @@ class CoOp:
 
         self.init_model(class_names=data['class_names'], per_epoch_steps=per_epoch_steps,text_key=self.text_key, text_prompt=self.text_prompt)
 
-        self.model.eval()
+        self.model.eval() # The buffer of the normalization layer will not be changed.
 
         for epoch in range(self.epochs):
             for idx, (x, y) in enumerate(train_loader):
@@ -274,6 +275,7 @@ class CoOp:
                 self.optimizer.zero_grad()
                 loss.backward()
                 self.optimizer.step()
+                # print(self.model.text_encoder.positional_embedding.data[0, 0])
 
 
 

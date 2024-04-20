@@ -100,16 +100,11 @@ def main(args):
     if args.model == 'coop':
         model = CoOp(prev_key,prev_prompt,args=args,keep=args.keep)
 
-    if not os.path.isdir(args.ckpt_path):
+    if not os.path.isdir(args.checkpoint):
         mkdir_p(args.checkpoint)
     if not os.path.isdir(args.save_path):
         mkdir_p(args.save_path)
     np.save(args.checkpoint + "/seed.npy", args.seed)
-    try:
-        shutil.copy2('main_incremental_submit.py', args.checkpoint)
-        shutil.copy2('vcop_submit.py', args.checkpoint)
-    except:
-        pass
     inc_dataset = incremental_dataloader.IncrementalDataset(
                         dataset_name=args.db_name,
                         args = args,
